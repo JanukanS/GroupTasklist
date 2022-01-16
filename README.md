@@ -4,16 +4,16 @@
 	Project Github : https://github.com/JanukanS/GroupTasklist
 
 === Software Components ===
-	1. MySQL Database:    # Done by Aaron
+1. MySQL Database:    # Done by Aaron
 		a. Stores data on task lists
 		b.able to be modified through python functions
-	2. Backend Server Software:   # Done by Jacob
+2. Backend Server Software:   # Done by Jacob
 		a. Implemented in Python with FastAPI
 		b. Defines a REST API that will call python functions to modify the database
 		c. Defines a websocket connection that will tell the client page to refresh on update
-	3. Frontend Server:  #Done by Janukan
+3. Frontend Server:  #Done by Janukan
 		a. Implemented in python with Jinja2 and served through FastAPI (can probably be combined with backend server)
-	4. Bonus Component:   #Done by Janukan
+4. Bonus Component:   #Done by Janukan
 		Ability to see current tasklist with a text, implemented with Twilio
 
 === Description ===
