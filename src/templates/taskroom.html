@@ -1,0 +1,47 @@
+<html>
+<head>
+	<title>Task Room </title>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<h1>Group Tasks for: {{ room_id }}</h1>
+	<p>Welcome {{ username }}</p>
+	<p>Add your friends with: <a href="http://127.0.0.1:8000/lobby/{{ room_id }}">http://127.0.0.1:8000/lobby/{{ room_id }}</a></p>
+	<table>
+		<tr>
+			<th>Task</th>
+			<th>Created By</th>
+			<th>Started By</th>
+			<th>Finished By</th>
+		</tr>
+		
+		{% for task in tasks -%}
+			<tr>
+			<td>{{ task.name }}</td>
+			<td>{{ task.author }}</td>
+
+			{% if task.starter|length == 0 %}
+			<td><button type = "button" onclick = "document.location.reload()">Start</button></td>
+                        {% else %}
+                        <td>{{ task.starter }}</td>
+                        {% endif %}
+
+			{% if task.finisher|length == 0 and task.starter|length != 0%}
+			<td><button type = "button">Finish</button></td>
+			{% else %}
+			<td>{{ task.finisher }}</td>
+			{% endif %}
+			</tr>
+		{% endfor %}
+	</table>
+	<h2>Create New Task</h2>
+	New Task:
+	<input type="text" id = "newtask"></input>
+	<button type = "button">Submit</button>
+</body>
+</html>
+

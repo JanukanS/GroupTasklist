@@ -1,0 +1,21 @@
+<html>
+<head>
+	<title>Group Lobby</title>
+	<script>
+		function enter_room(){
+			var uname = document.getElementById("username").value;
+			var r_id ="{{ room_id  }}";
+			var newurl = "/room/" + r_id + "/" + uname;
+			window.location.replace(newurl);
+		}
+	</script>
+</head>
+<body>
+	<h1>Lobby for Room {{ room_id }}:</h1>
+	<label for="fname">username</label><br>
+	<input type="text" id="username" name="username"><br>
+	<button type = "button" onclick = "enter_room()">Submit</button>
+
+</body>
+</html>
+
