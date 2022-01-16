@@ -1,11 +1,21 @@
-=== some sexy name here ===
+=== TaskWind ===
 
 	Contributors: Janukan, Jacob, Aaron
 	URL : http://34.71.46.196/
 	Project Github : https://github.com/JanukanS/GroupTasklist
 
-=== Software Components ===
+=== Purpose ===
 
+A group tasklist that can be shared with a single link. Meant for impromptu group tasks i.e. multiple people getting grocieres from a store, multiple people searching for a lost object 
+
+=== Software Components ===
+1. Database: MySQL
+2. Web Server: Python FastAPI
+	a. REST API endpoints to manipulate database
+	b. REST API endpoints to serve frontend content,front end implemented with the Jinja2 python library
+	c. Websocket endpoint to update content in real-time
+
+=== Development ===
 1. MySQL Database:    # Done by Aaron
 
 		a. Stores data on task lists
@@ -21,9 +31,6 @@
 
 		Implemented in python with Jinja2 and served through FastAPI (can probably be combined with backend server)
 		
-4. Bonus Component:   #Done by Janukan
-
-		Ability to see current tasklist with a text, implemented with Twilio
 
 === Description ===
 A Task Management Software 
