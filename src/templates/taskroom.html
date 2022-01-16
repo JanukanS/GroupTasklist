@@ -47,13 +47,49 @@
 	</script>
 	<style>
 		table, th, td {
-			border: 1px solid black;
+			border: 1px solid rgb(153, 153, 153);
+		}
+
+		body {
+			background-color: #f9f9f9;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
+		.container {
+			margin: 5% 12%
+		}
+		.room-code {
+			background-color: #6cdaff;
+			font-weight: 700;
+			border-radius: 10px;
+			padding: 2px
+		}
+		button {
+			background-color: #ef9cda;
+			border: none;
+			padding:5px;
+			border-radius: 5px;
+			opacity: 0.6;
+			transition: 0.3s
+		}
+		.submit{
+			background-color: #6cdaff;
+		}
+		button:hover{opacity: 1}
+		table {
+			margin: 12px 0px;
+			width: 100%
+		}
+		td{
+			padding:5px;
+			font-size: 14px;
+			text-align: center;
 		}
 	</style>
 </head>
 <body>
-	<h1>Group Tasks for: {{ room_id }}</h1>
-	<p>Welcome {{ username }}</p>
+	<div class = 'container'>
+	<h1>&#128221 Group Tasks for: <span class='room-code'>{{ room_id }}</span></h1>
+	<p>Welcome {{ username }} &#128075</p>
 	<p>Add your friends with: <a href="/lobby/{{ room_id }}">{{ urlpath }}/lobby/{{ room_id }}</a></p>
 	<table>
 		<tr>
@@ -90,10 +126,11 @@
 			</tr>
 		{% endfor %}
 	</table>
-	<h2>Create New Task</h2>
+	<h2>&#128393 Create New Task</h2>
 	New Task:
 	<input type="text" id = "newtask"></input>
-	<button type = "button" onclick = "createTaskClient()">Submit</button>
+	<button type = "button" class='submit' onclick = "createTaskClient()">Submit</button>
+	</div>
 </body>
 </html>
 

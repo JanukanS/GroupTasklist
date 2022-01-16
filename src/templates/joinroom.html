@@ -1,6 +1,54 @@
 <html>
 <head>
 	<title>Group Lobby</title>
+	<style>
+		table, th, td {
+			border: 1px solid rgb(153, 153, 153);
+		}
+
+		body {
+			animation: fadein 2s;
+			background-color: #f9f9f9;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		}
+		.container {
+			margin: 5% 12%
+		}
+		.room-code {
+			background-color: #6cdaff;
+			font-weight: 700;
+			border-radius: 10px;
+			padding: 2px
+		}
+		button {
+			background-color: #ef9cda;
+			border: none;
+			padding:5px;
+			border-radius: 5px;
+			opacity: 0.6;
+			transition: 0.3s;
+			margin-top: 5px;
+		}
+		.submit{
+			background-color: #6cdaff;
+		}
+		button:hover{opacity: 1}
+		table {
+			margin: 12px 0px;
+			width: 100%
+		}
+		td {
+			padding:5px;
+			font-size: 14px;
+			text-align: center;
+		}
+
+
+		.username{
+			display:flex
+		}
+
+	</style>
 	<script>
 		function enter_room(){
 			var uname = document.getElementById("username").value;
@@ -11,10 +59,12 @@
 	</script>
 </head>
 <body>
-	<h1>Lobby for Room {{ room_id }}:</h1>
-	<label for="fname">username</label><br>
-	<input type="text" id="username" name="username"><br>
-	<button type = "button" onclick = "enter_room()">Submit</button>
+	<div class='container'>
+		<h1>Lobby for Room <span class='room-code'>{{ room_id }}</span></h1>
+		<label for="fname">Username:</label>
+		<input type="text" id="username" name="username"><br>
+		<button type = "button" class='submit' onclick = "enter_room()">Submit</button>
+	</div>
 
 </body>
 </html>
