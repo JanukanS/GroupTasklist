@@ -5,7 +5,6 @@ from fastapi.templating import Jinja2Templates
 from interfaceDB import *
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 #Data API endpoints
