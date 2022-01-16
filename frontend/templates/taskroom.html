@@ -1,0 +1,41 @@
+<html>
+<head>
+	<title>Task Room </title>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<h1>Group Tasks for: {{ room_id }}:</h1>
+	<table>
+		<tr>
+			<th>Task</th>
+			<th>Created By</th>
+			<th>Started By</th>
+			<th>Finished By</th>
+		</tr>
+		
+		{% for task in tasks -%}
+			<tr>
+			<td>{{ task.name }}</td>
+			<td>{{ task.author }}</td>
+
+			{% if task.starter|length == 0 %}
+                        <td><button name="start"/></td>
+                        {% else %}
+                        <td>{{ task.starter }}</td>
+                        {% endif %}
+
+			{% if task.finisher|length == 0 and task.starter|length != 0%}
+			<td><button name="finish"/></td>
+			{% else %}
+			<td>{{ task.finisher }}</td>
+			{% endif %}
+			</tr>
+		{% endfor %}
+	</table> 		
+</body>
+</html>
+
