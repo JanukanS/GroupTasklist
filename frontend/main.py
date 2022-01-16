@@ -18,8 +18,8 @@ async def home_page(request: Request):
 async def room_lobby(request: Request, room_id:str):
     return templates.TemplateResponse("joinroom.html", {"request": request, "room_id": room_id})
 
-@app.get("/room/{room_id}",response_class = HTMLResponse)
-async def gen_room(request: Request, room_id:str):
+@app.get("/room/{room_id}/{username}",response_class = HTMLResponse)
+async def gen_room(request: Request, room_id:str,username:str):
     tasks = [0,0,0,0]
     tasks[0] = {
                 "name":"Hackathon",
@@ -46,7 +46,7 @@ async def gen_room(request: Request, room_id:str):
             "finisher":""
             }
 
-    return templates.TemplateResponse("taskroom.html",{"request":request, "room_id": room_id, "tasks": tasks})
+    return templates.TemplateResponse("taskroom.html",{"request":request, "room_id": room_id,"username":username, "tasks": tasks})
 
 
 @app.get("/items/{id}", response_class=HTMLResponse)
