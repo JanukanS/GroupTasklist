@@ -98,7 +98,7 @@ def f_retrieve(roomno):  #sixth function
     if mydb.is_connected() == False:
       return "","error connecting to MySQL"
     cursor = mydb.cursor()
-    cursor.execute("select* from {}".format(roomno))
+    cursor.execute("select* from {} order by ctime".format(roomno))
     rec = cursor.fetchall()
     return rec
 
