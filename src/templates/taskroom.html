@@ -42,8 +42,10 @@
                 xmlHttp.open("GET", urlval , true); // true for asynchronous
                 xmlHttp.send();
         }
-
-
+	var socket = new WebSocket('ws://' + window.location.hostname + "/ws");
+            socket.onmessage = function(event) {
+		    window.location.reload();      
+            };
 	</script>
 	<style>
 		table, th, td {

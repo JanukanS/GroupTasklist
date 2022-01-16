@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -11,31 +11,54 @@ templates = Jinja2Templates(directory="templates")
 sleep(10)
 a_connect()
 
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: List[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
+
+    async def send_personal_message(self, message: str, websocket: WebSocket):
+        await websocket.send_text(message)
+
+    async def broadcast(self, message: str):
+        for connection in self.active_connections:
+            await connection.send_text(message)
+
+manager = ConnectionManager()
+
 #Data API endpoints
 @app.get('/clear')
-def clear_db():
+async def clear_db():
     a_connect()
     return True
 
 @app.get('/create-room')
-def create_room():
+async def create_room():
     return b_create_room()
 
 @app.get('/create-task/{room_id}/{title}/{authour}')
-def create_task(title, authour, room_id):
+async def create_task(title, authour, room_id):
+    await manager.broadcast("refresh please")
     c_create_task(title,authour,room_id)
     return True
 
 @app.get('/task_table/{room_id}')
-def task_table(room_id):
+async def task_table(room_id):
     return f_retrieve(room_id)
 
 @app.get('/start_task/{room_id}/{task_id}/{person}')
-def start_task(task_id,person,room_id):
+async def start_task(task_id,person,room_id):
+    await manager.broadcast("refresh please")
     return d_start_task(task_id,person,room_id)
 
 @app.get('/finish_task/{room_id}/{task_id}/{person}')
-def finish_task(task_id,person,room_id):
+async def finish_task(task_id,person,room_id):
+    await manager.broadcast("refresh please")
     return e_complete(task_id,person,room_id)
 
 #HTML API endpoints
@@ -62,4 +85,17 @@ async def gen_room(request: Request, room_id:str,username:str):
         "urlpath": environ.get('PROJECT_URL')
         })
 
+#Websockets
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await manager.connect(websocket)
+    try:
+        while True:
+            data = await websocket.receive_text()
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+@app.get("/refresh")
+async def send_refresh():
+    await manager.broadcast("refresh please")
+    return True
 

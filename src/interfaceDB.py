@@ -30,12 +30,12 @@ def b_create_room():  #the second function
     if mydb.is_connected() == False:
       return "","error connecting to MySQL"
     cursor = mydb.cursor()
-    cursor.execute("create table %s(Name varchar(60) Primary key,Creator varchar(20),ctime varchar(20),Doer varchar(20),stime varchar(20),Completer varchar(20),etime varchar(20))"%(roomno))
+    cursor.execute("create table %s(Name varchar(100) Primary key,Creator varchar(100),ctime varchar(20),Doer varchar(100),stime varchar(20),Completer varchar(100),etime varchar(20))"%(roomno))
     return roomno
 
 def c_create_task(Tname,creator,roomno):  #third function
-    from datetime import datetime
-    now = datetime.now()
+    from datetime import datetime, timedelta
+    now = datetime.now()+timedelta(hours=-7)
     current_time = now.strftime("%H:%M:%S")
     time24 = current_time
     if int(time24[0:2]) > 12:
@@ -53,8 +53,8 @@ def c_create_task(Tname,creator,roomno):  #third function
     return
 
 def d_start_task(Tname,doer_name,roomno):  #fourth function
-    from datetime import datetime
-    now = datetime.now()
+    from datetime import datetime, timedelta
+    now = datetime.now()+timedelta(hours=-7)
     current_time = now.strftime("%H:%M:%S")
     time24 = current_time
     if int(time24[0:2]) > 12:
@@ -72,8 +72,8 @@ def d_start_task(Tname,doer_name,roomno):  #fourth function
     return 
 
 def e_complete(Tname,doer_name,roomno):  #fifth function
-    from datetime import datetime
-    now = datetime.now()
+    from datetime import datetime, timedelta
+    now = datetime.now()+timedelta(hours=-7)
     current_time = now.strftime("%H:%M:%S")
     time24 = current_time
     if int(time24[0:2]) > 12:
@@ -91,20 +91,15 @@ def e_complete(Tname,doer_name,roomno):  #fifth function
     return 
 
 def f_retrieve(roomno):  #sixth function
-    from datetime import datetime
-    now = datetime.now()
+    from datetime import datetime, timedelta
+    now = datetime.now()+timedelta(hours=-7)
     current_time = now.strftime("%H:%M:%S")
     mydb = connect1()
     if mydb.is_connected() == False:
       return "","error connecting to MySQL"
     cursor = mydb.cursor()
-    cursor.execute("select* from {}".format(roomno))
+    cursor.execute("select* from {} order by ctime".format(roomno))
     rec = cursor.fetchall()
     return rec
 
-##if __name__=="__main__":
-##    s=b_create_room()
-##    c_create_task("clean","aaron",s)
-##    print(d_start_task("clean", "amarnath",s))
-##    print(e_complete("clean","amarnath",s))
-##    print(f_retrieve(s))
+
