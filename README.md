@@ -1,7 +1,7 @@
 === some sexy name here ===
-Contributors: Janukan, Jacob, Aaron
-URL : http://34.71.46.196/
-Project Github : https://github.com/JanukanS/GroupTasklist
+	Contributors: Janukan, Jacob, Aaron
+	URL : http://34.71.46.196/
+	Project Github : https://github.com/JanukanS/GroupTasklist
 
 === Software Components ===
 	1. MySQL Database:    # Done by Aaron
