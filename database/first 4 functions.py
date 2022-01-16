@@ -56,7 +56,7 @@ def d_start_task(Tname,doer_name,roomno):  #fourth function
     cursor.execute("update {} set Doer='{}',stime='{}' where Name='{}'".format(roomno, doer_name, str(current_time), Tname))
     mydb.commit()
     return "Task started by %s at %s"%(doer_name,str(current_time))
-print(d_start_task("clean windows","aaron","CQSB"))
+
 
                
 
