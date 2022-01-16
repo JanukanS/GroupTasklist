@@ -1,6 +1,6 @@
 def a_connect():  #the first function
     import mysql.connector
-    mydb = mysql.connector.connect(host="34.133.7.196", user="root")
+    mydb = mysql.connector.connect(host="mysql_db", user="root")
     if mydb.is_connected() == False:
         return("error connecting to MySQL")
     mycursor =  mydb.cursor()
@@ -13,7 +13,7 @@ def a_connect():  #the first function
 
 def connect1(): #used by other functions to skip duplication
     import mysql.connector
-    mydb = mysql.connector.connect(host="34.133.7.196", user="root", database="todolist")
+    mydb = mysql.connector.connect(host="mysql_db", user="root", database="todolist")
     if mydb.is_connected() == False:
         exit()
     cursor = mydb.cursor()
@@ -30,7 +30,7 @@ def b_create_room():  #the second function
     if mydb.is_connected() == False:
       return "","error connecting to MySQL"
     cursor = mydb.cursor()
-    cursor.execute("create table %s(Name varchar(20) Primary key,Creator varchar(20),ctime varchar(20),Doer varchar(20),stime varchar(20),Completer varchar(20),etime varchar(20))"%(roomno))
+    cursor.execute("create table %s(Name varchar(60) Primary key,Creator varchar(20),ctime varchar(20),Doer varchar(20),stime varchar(20),Completer varchar(20),etime varchar(20))"%(roomno))
     return roomno
 
 def c_create_task(Tname,creator,roomno):  #third function
