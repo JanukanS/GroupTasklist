@@ -4,6 +4,8 @@ services:
                 build: ./src
                 ports:
                         - "80:8000"
+                environment:
+                        PROJECT_URL: "34.71.46.196"
         mysql_db:
                 image: mysql
                 ports:

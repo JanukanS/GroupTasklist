@@ -3,9 +3,13 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from interfaceDB import *
+from os import environ
+from time import sleep
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+sleep(10)
+a_connect()
 
 #Data API endpoints
 @app.get('/clear')
@@ -50,6 +54,12 @@ async def gen_room(request: Request, room_id:str,username:str):
         taskdata[index] = list(tupleVal)
         for index2,value in enumerate(taskdata[index]):
             taskdata[index][index2] = '' if value is None else value
-    return templates.TemplateResponse("taskroom.html",{"request":request, "room_id": room_id,"username":username, "tasks": taskdata})
+    return templates.TemplateResponse("taskroom.html",{
+        "request":request,
+        "room_id": room_id,
+        "username":username, 
+        "tasks": taskdata,
+        "urlpath": environ.get('PROJECT_URL')
+        })
 
 

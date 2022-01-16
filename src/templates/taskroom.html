@@ -54,7 +54,7 @@
 <body>
 	<h1>Group Tasks for: {{ room_id }}</h1>
 	<p>Welcome {{ username }}</p>
-	<p>Add your friends with: <a href="http://127.0.0.1:8000/lobby/{{ room_id }}">http://127.0.0.1:8000/lobby/{{ room_id }}</a></p>
+	<p>Add your friends with: <a href="{{ urlpath }}/lobby/{{ room_id }}">{{ urlpath }}/lobby/{{ room_id }}</a></p>
 	<table>
 		<tr>
 			<th>Task</th>
