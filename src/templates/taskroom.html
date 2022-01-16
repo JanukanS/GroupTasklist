@@ -1,6 +1,50 @@
 <html>
 <head>
 	<title>Task Room </title>
+	<script>
+	function createTaskClient(){
+		var xmlHttp = new XMLHttpRequest();
+		var title = document.getElementById("newtask").value;
+		var authour = "{{ username }}";
+		var room_id = "{{ room_id }}";
+		var urlval = "/create-task/" + room_id + "/" + title + "/" + authour;
+		xmlHttp.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status==200){
+				window.location.reload();
+			}
+		}
+		xmlHttp.open("GET", urlval , true); // true for asynchronous 
+		xmlHttp.send();
+        }   
+        function startTaskClient(title){
+                var xmlHttp = new XMLHttpRequest();
+                var authour = "{{ username }}";
+                var room_id = "{{ room_id }}";
+                var urlval = "/start_task/" + room_id + "/" + title + "/" + authour;
+                xmlHttp.onreadystatechange = function() {
+                        if(this.readyState == 4 && this.status==200){
+                                window.location.reload();
+                        }
+                }
+                xmlHttp.open("GET", urlval , true); // true for asynchronous
+                xmlHttp.send();
+        }
+        function finishTaskClient(title){
+                var xmlHttp = new XMLHttpRequest();
+                var authour = "{{ username }}";
+                var room_id = "{{ room_id }}";
+                var urlval = "/finish_task/" + room_id + "/" + title + "/" + authour;
+                xmlHttp.onreadystatechange = function() {
+                        if(this.readyState == 4 && this.status==200){
+                                window.location.reload();
+                        }
+                }
+                xmlHttp.open("GET", urlval , true); // true for asynchronous
+                xmlHttp.send();
+        }
+
+
+	</script>
 	<style>
 		table, th, td {
 			border: 1px solid black;
@@ -15,25 +59,33 @@
 		<tr>
 			<th>Task</th>
 			<th>Created By</th>
+			<th>Created at</th>
 			<th>Started By</th>
+			<th>Started At</th>
 			<th>Finished By</th>
+			<th>Finished At</th>
 		</tr>
 		
 		{% for task in tasks -%}
 			<tr>
-			<td>{{ task.name }}</td>
-			<td>{{ task.author }}</td>
+			<td>{{ task[0] }}</td>
+			<td>{{ task[1] }}</td>
+			<td>{{ task[2] }}</td>
 
-			{% if task.starter|length == 0 %}
-			<td><button type = "button" onclick = "document.location.reload()">Start</button></td>
-                        {% else %}
-                        <td>{{ task.starter }}</td>
+			{% if task[3]|length == 0 %}
+			<td><button type = "button" onclick = "startTaskClient('{{ task[0] }}') " >Start</button></td>
+			<td></td>
+			{% else %}
+                        <td>{{ task[3] }}</td>
+			<td>{{ task[4] }}</td> 
                         {% endif %}
 
-			{% if task.finisher|length == 0 and task.starter|length != 0%}
-			<td><button type = "button">Finish</button></td>
+			{% if task[5]|length == 0 and task[3]|length != 0 %}
+			<td><button type = "button" onclick = "finishTaskClient('{{ task[0] }}')" >Finish</button></td>
+			<td></td>
 			{% else %}
-			<td>{{ task.finisher }}</td>
+			<td>{{ task[5] }}</td>
+			<td>{{ task[6] }}</td>
 			{% endif %}
 			</tr>
 		{% endfor %}
@@ -41,7 +93,7 @@
 	<h2>Create New Task</h2>
 	New Task:
 	<input type="text" id = "newtask"></input>
-	<button type = "button">Submit</button>
+	<button type = "button" onclick = "createTaskClient()">Submit</button>
 </body>
 </html>
 

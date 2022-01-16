@@ -1,15 +1,37 @@
 <html>
 <head>
 	<title>Group Tasklist</title>
+	<script>
+	function createRoomClient(){
+		var uname = document.getElementById("username1").value;
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status==200){
+				window.location.replace("/room/" + xmlHttp.responseText.slice(1,-1) +  "/" + uname);
+			}
+		}
+		xmlHttp.open("GET", "/create-room", true); // true for asynchronous 
+		xmlHttp.send(null);
+	}	
+	function enter_room(){
+		var uname = document.getElementById("username2").value;
+		var r_id = document.getElementById("room2").value;
+		var newurl = "/room/" + r_id + "/" + uname;
+		window.location.replace(newurl);
+	}
+	</script>	
 </head>
 <body>
 	<h1>Create New Room</h1>
-
-		Username:</label><br>
-		<input type="text" id="username1" name="username"><br>
-		 <input type="submit" value="Submit">		
-	</form>
+	Username:
+	<input type="text" id="username1" name="username"><br>
+	<button type="button" onclick="createRoomClient()">Submit</button>		
 	<h1>Join a Existing Room</h1>
+	Username:
+        <input type="text" id="username2" name="username"><br>
+	Room:
+	<input type="text" id="room2" name="username"><br>
+	<button type="button" onclick="enter_room()">Submit</button>
 
 
 </body>
